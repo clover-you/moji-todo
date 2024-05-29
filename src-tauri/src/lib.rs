@@ -11,7 +11,7 @@ static DB_URL: Mutex<String> = Mutex::new(String::new());
 const CREATE_TASK_SCRIPT: &str = r#"
 CREATE TABLE if NOT EXISTS task (
     id INTEGER PRIMARY key NOT NULL,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(512) NOT NULL,
     status INTEGER
 )
 "#;
@@ -77,29 +77,24 @@ async fn update_task_by_id(
     .fetch_one(&db)
     .await?;
 
-  let sql = format!(
-    "update task set status = {} , name = '{}' where id = {}",
-    status.unwrap_or(task_raw.status),
-    name.unwrap_or(task_raw.name),
-    id
-  );
-
-  println!("update sql = {}", sql);
-
-  sqlx::query(sql.as_str()).execute(&db).await?;
+  sqlx::query("update task set status = ? , name = ? where id = ?")
+    .bind(status.unwrap_or(task_raw.status))
+    .bind(name.unwrap_or(task_raw.name))
+    .bind(id)
+    .execute(&db)
+    .await?;
 
   Ok(())
 }
 
 async fn add_task_to_db(name: String, status: i32) -> Result<(), Box<dyn error::Error>> {
-  let db = create_db().await?;
+  let pool = create_db().await?;
 
-  let sql = format!(
-    "insert into task(name, status) values('{}', {})",
-    name, status
-  );
-
-  sqlx::query(sql.as_str()).execute(&db).await?;
+  sqlx::query("insert into task(name, status) values(?, ?)")
+    .bind(name)
+    .bind(status)
+    .execute(&pool)
+    .await?;
 
   Ok(())
 }
@@ -109,7 +104,6 @@ async fn create_db() -> Result<Pool<Sqlite>, Box<dyn error::Error>> {
   let url = DB_URL.lock().unwrap().clone();
   let url = url.as_str();
 
-  println!("db url: {}", url);
   if !sqlx::Sqlite::database_exists(url).await.unwrap_or(false) {
     sqlx::Sqlite::create_database(url).await?;
   }
