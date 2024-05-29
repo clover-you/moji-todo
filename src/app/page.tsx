@@ -9,6 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Task, TaskStatus } from "@/store/task"
 import { invoke } from "@tauri-apps/api/core"
 import { setTaskList, addTask } from "@/store/task"
+import { ProgressBar } from "@/components/progress-bar"
 
 export default function Home() {
   const inpValRef = React.useRef("")
@@ -45,6 +46,7 @@ export default function Home() {
       <ScrollArea className="w-full flex-grow">
         <TaskList />
       </ScrollArea>
+      <ProgressBar />
     </main>
   )
 }
