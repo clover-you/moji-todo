@@ -1,5 +1,6 @@
 [package]
-name = "MojiTodo"
+name = "moji-todo"
+default-run = "moji-todo"
 version = "0.0.1"
 description = "moji todo"
 authors = ["Clover You"]

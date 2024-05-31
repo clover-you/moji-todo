@@ -1,6 +1,6 @@
 {
-  "productName": "moji-todo",
-  "version": "0.0.0",
+  "productName": "Moji Todo",
+  "version": "0.0.1",
   "identifier": "top.ctong.app.todo",
   "build": {
     "beforeDevCommand": "pnpm dev",
