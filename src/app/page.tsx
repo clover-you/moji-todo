@@ -11,12 +11,16 @@ import { invoke } from "@tauri-apps/api/core"
 import { setTaskList, addTask } from "@/store/task"
 import { ProgressBar } from "@/components/progress-bar"
 
+import * as strings from "@/utils/strings"
+
 export default function Home() {
   const inpValRef = React.useRef("")
   const inpRef = React.createRef<HTMLInputElement>()
 
   async function addTaskToDb() {
-    await invoke("add_task", { task: { name: inpValRef.current, status: TaskStatus.Todo } })
+    if (!strings.has(inpValRef.current)) return
+
+    await invoke("add_task", { task: { name: inpValRef.current.trim(), status: TaskStatus.Todo } })
     dispatch(addTask({ name: inpValRef.current, status: TaskStatus.Todo }))
 
     const inp = inpRef.current
