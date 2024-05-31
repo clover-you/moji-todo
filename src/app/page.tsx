@@ -36,17 +36,19 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="flex h-screen overflow-hidden flex-col items-center space-y-2 p-4 pt-0
+    <main className="flex h-screen overflow-hidden flex-col items-center space-y-2 pt-0
             box-border">
-      <div className="flex w-full items-center space-x-2 pb-2 pt-4 bg-white flex-grow-0">
+      <div className="flex w-full items-center space-x-2 bg-white flex-grow-0 p-4 pb-0">
         <Input placeholder="Task name" onChange={e => inpValRef.current = e.target.value}
           ref={inpRef} />
         <Button type="submit" onClick={addTaskToDb}>Add</Button>
       </div>
-      <ScrollArea className="w-full flex-grow">
+      <ScrollArea className="w-full flex-grow p-4 pr-3 mr-1">
         <TaskList />
       </ScrollArea>
-      <ProgressBar />
+      <div className="flex-shrink-0 p-4 pt-0 w-full" >
+        <ProgressBar />
+      </div>
     </main>
   )
 }
