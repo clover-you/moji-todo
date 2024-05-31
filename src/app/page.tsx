@@ -43,7 +43,7 @@ export default function Home() {
           ref={inpRef} />
         <Button type="submit" onClick={addTaskToDb}>Add</Button>
       </div>
-      <ScrollArea className="w-full flex-grow p-4 pr-3 mr-1">
+      <ScrollArea className="w-full flex-grow pl-4 pr-3 mr-1">
         <TaskList />
       </ScrollArea>
       <div className="flex-shrink-0 p-4 pt-0 w-full" >
