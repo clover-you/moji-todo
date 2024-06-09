@@ -21,6 +21,7 @@ export function TaskList() {
     <TaskItem name={task.name} status={task.status} id={task.id} key={task.id}
       onMoveToTrash={() => changeState(task.id, TaskStatus.Trash)}
       onCancel={() => changeState(task.id, TaskStatus.Cancel)}
-      onDone={() => changeState(task.id, TaskStatus.Done)} />,
+      onDone={() => changeState(task.id, TaskStatus.Done)}
+      onRedo={() => changeState(task.id, TaskStatus.Todo)} />,
   ).reverse()
 }
