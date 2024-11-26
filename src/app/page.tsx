@@ -42,7 +42,7 @@ export default function Home() {
   return (
     <main className="flex h-screen overflow-hidden flex-col items-center space-y-2 pt-0
             box-border">
-      <div className="flex w-full items-center space-x-2 bg-white flex-grow-0 p-4 pb-0">
+      <div className="flex w-full items-center space-x-2 flex-grow-0 p-4 pb-0">
         <Input placeholder="Task name" onChange={e => inpValRef.current = e.target.value}
           ref={inpRef} />
         <Button type="submit" onClick={addTaskToDb}>Add</Button>
