@@ -2,6 +2,9 @@ import { NextConfig } from 'next'
 import { getAssetPrefix } from './scripts/prefix'
 
 const nextConfig = async () => ({
+  experimental: {
+    reactCompiler: true
+  },
   // Ensure Next.js uses SSG instead of SSR
   // https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
   output: "export",
