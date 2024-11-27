@@ -1,17 +1,15 @@
 "use client"
 
 import React from "react"
-import { useDispatch } from "react-redux"
 
 import { TaskList } from "@/components/task-list"
 import { Button, Input } from "@/components/ui"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Task, TaskStatus } from "@/store/task"
-import { invoke } from "@tauri-apps/api/core"
-import { setTaskList, addTask } from "@/store/task"
+import { TaskStatus } from "@/store/task"
 import { ProgressBar } from "@/components/progress-bar"
 
 import * as strings from "@/utils/strings"
+import { addTaskIPC, fetchTaskListIPC } from "@/tauri/cmds"
 
 export default function Home() {
   const inpValRef = React.useRef("")
@@ -20,24 +18,14 @@ export default function Home() {
   async function addTaskToDb() {
     if (!strings.has(inpValRef.current)) return
 
-    await invoke("add_task", { task: { name: inpValRef.current.trim(), status: TaskStatus.Todo } })
-    dispatch(addTask({ name: inpValRef.current, status: TaskStatus.Todo }))
+    await addTaskIPC({ name: inpValRef.current.trim(), status: TaskStatus.Todo })
 
     const inp = inpRef.current
     if (inp) inp.value = ""
     inpValRef.current = ""
   }
 
-  const dispatch = useDispatch()
-
-  async function loadTaskList() {
-    const tasks = await invoke<Task[]>("get_tasks")
-    dispatch(setTaskList(tasks))
-  }
-
-  React.useEffect(() => {
-    loadTaskList()
-  }, [])
+  React.useEffect(() => { fetchTaskListIPC() }, [])
 
   return (
     <main className="flex h-screen overflow-hidden flex-col items-center space-y-2 pt-0 box-border file:text-sm">
