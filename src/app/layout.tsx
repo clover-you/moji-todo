@@ -5,7 +5,7 @@ import "./globals.css"
 
 import { Providers } from "@/lib"
 import { ThemeProvider } from "./theme"
-import { Input } from "@/components/ui"
+import { WinDisplayController } from "@/lib/win-display-controller"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -25,6 +25,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Providers>{children}</Providers>
         </ThemeProvider>
+        <WinDisplayController />
       </body>
     </html>
   )
