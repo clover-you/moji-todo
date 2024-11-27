@@ -45,14 +45,16 @@ export function Task(props: TaskProps) {
       <CardContent className="py-1 justify-between flex w-full flex-row items-center">
         <p className="text-sm">{props.name}</p>
         <div>
-          <Button variant="ghost" className="w-9 h-9 p-0"
+          <Button
+            variant="ghost"
+            className="w-9 h-9 p-0"
             onClick={() => action(TaskStatus.Done, props.onDone)}
           >
             {props.status === TaskStatus.Done ? <ResetIcon /> :
               <CheckIcon color="#2ed573" height={18} width={18} />}
           </Button>
 
-          <Button size={"sm"} variant="ghost" className="w-9 h-9 p-0"
+          <Button size="sm" variant="ghost" className="w-9 h-9 p-0"
             onClick={() => action(TaskStatus.Cancel, props.onCancel)}
           >
             {props.status === TaskStatus.Cancel ? <ResetIcon /> :
@@ -60,8 +62,8 @@ export function Task(props: TaskProps) {
           </Button>
 
           <Popover>
-            <PopoverTrigger>
-              <Button size={"sm"} variant="ghost" className="w-9 h-9 p-0">
+            <PopoverTrigger asChild>
+              <Button size="sm" variant="ghost" className="w-9 h-9 p-0">
                 <TrashIcon color="red" height={16} width={16} />
               </Button>
             </PopoverTrigger>
@@ -70,7 +72,7 @@ export function Task(props: TaskProps) {
               <p>Are you sure you want to delete it?</p>
               <div className="flex">
                 <div className="flex-grow"></div>
-                <Button size={"sm"} variant="ghost" onClick={props.onMoveToTrash}>DEL</Button>
+                <Button size="sm" variant="ghost" onClick={props.onMoveToTrash}>DEL</Button>
               </div>
             </PopoverContent>
           </Popover>

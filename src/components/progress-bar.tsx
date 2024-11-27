@@ -12,7 +12,7 @@ export function ProgressBar() {
     return acc
   }, [0, 0])
 
-  return <>
-    <Progress progress={progress} total={total} />
-  </>
+  if (!total) return
+
+  return <Progress value={(progress / total) * 100} />
 }
